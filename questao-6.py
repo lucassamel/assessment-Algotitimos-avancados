@@ -1,3 +1,5 @@
+lista = [7,6,6,5,5,5,1,1,1,3,3,3,9,9,8,8,4,4,4,3,3]
+
 def divideLista(lista, primeiro, ultimo, inicio, meio):
     pivo = lista[ultimo]
     fim = ultimo
@@ -31,6 +33,6 @@ def quicksort(lista, primeiro, ultimo):
     quicksort(lista, meio[0], ultimo)
 
 
-lista = [7,6,6,5,5,5,1,1,1,3,3,3,9,9,8,8,4,4,4,3,3]
+
 quicksort(lista, 0, len(lista) - 1)
 print(lista)
