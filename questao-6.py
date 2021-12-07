@@ -1,71 +1,36 @@
-'''
-This function partitions a[] in three parts
-a) a[first..start] contains all elements smaller than pivot
-b) a[start+1..mid-1] contains all occurrences of pivot
-c) a[mid..last] contains all elements greater than pivot
+def divideLista(lista, primeiro, ultimo, inicio, meio):
+    pivo = lista[ultimo]
+    fim = ultimo
 
-'''
-
-
-def partition(arr, first, last, start, mid):
-    pivot = arr[last]
-    end = last
-
-    # Iterate while mid is not greater than end.
-    while (mid[0] <= end):
-
-        # Inter Change position of element at the starting if it's value is less than pivot.
-        if (arr[mid[0]] < pivot):
-
-            arr[mid[0]], arr[start[0]] = arr[start[0]], arr[mid[0]]
-
-            mid[0] = mid[0] + 1
-            start[0] = start[0] + 1
-
-        # Inter Change position of element at the end if it's value is greater than pivot.
-        elif (arr[mid[0]] > pivot):
-
-            arr[mid[0]], arr[end] = arr[end], arr[mid[0]]
-
-            end = end - 1
-
+    while (meio[0] <= fim):
+        if (lista[meio[0]] < pivo):
+            lista[meio[0]], lista[inicio[0]] = lista[inicio[0]], lista[meio[0]]
+            meio[0] = meio[0] + 1
+            inicio[0] = inicio[0] + 1
+        elif (lista[meio[0]] > pivo):
+            lista[meio[0]], lista[fim] = lista[fim], lista[meio[0]]
+            fim = fim - 1
         else:
-            mid[0] = mid[0] + 1
+            meio[0] = meio[0] + 1
 
 
-# Function to sort the array elements in 3 cases
-def quicksort(arr, first, last):
-    # First case when an array contain only 1 element
-    if (first >= last):
+def quicksort(lista, primeiro, ultimo):
+
+    if (primeiro >= ultimo):
         return
-
-    # Second case when an array contain only 2 elements
-    if (last == first + 1):
-
-        if (arr[first] > arr[last]):
-            arr[first], arr[last] = arr[last], arr[first]
-
+    if (ultimo == primeiro + 1):
+        if (lista[primeiro] > lista[ultimo]):
+            lista[primeiro], lista[ultimo] = lista[ultimo], lista[primeiro]
             return
 
-    # Third case when an array contain more than 2 elements
-    start = [first]
-    mid = [first]
 
-    # Function to partition the array.
-    partition(arr, first, last, start, mid)
-
-    # Recursively sort sublist containing elements that are less than the pivot.
-    quicksort(arr, first, start[0] - 1)
-
-    # Recursively sort sublist containing elements that are more than the pivot
-    quicksort(arr, mid[0], last)
+    inicio = [primeiro]
+    meio = [primeiro]
+    divideLista(lista, primeiro, ultimo, inicio, meio)
+    quicksort(lista, primeiro, inicio[0] - 1)
+    quicksort(lista, meio[0], ultimo)
 
 
-# Code Start from here
-arr = [4, 9, 4, 4, 1, 9, 4, 4, 9, 4, 4, 1, 4]
-
-# Call the quicksort function.
-quicksort(arr, 0, len(arr) - 1)
-
-# print arr after sorting the elements
-print(arr)
+lista = [7,6,6,5,5,5,1,1,1,3,3,3,9,9,8,8,4,4,4,3,3]
+quicksort(lista, 0, len(lista) - 1)
+print(lista)
