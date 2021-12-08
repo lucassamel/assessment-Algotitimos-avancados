@@ -1,13 +1,12 @@
 import math
 
-
 class HeapMinimo:
 
     def __init__(self):
         self.nos = 0
-        self.heap = []     # É Um heapmínimo
+        self.heap = []
 
-    def insere_novono_heap(self, u, indice):
+    def adiciona_heap(self, u, indice):
         self.heap.append([u, indice])
         self.nos += 1
         f = self.nos
@@ -20,20 +19,6 @@ class HeapMinimo:
             else:
                 self.heap[p-1], self.heap[f-1] = self.heap[f-1], self.heap[p-1]
                 f = p
-
-    def exibe_heap(self):
-        print('A estrutura heap é a seguinte:')
-        nivel = int(math.log(self.nos, 2))
-        a = 0
-        for i in range(nivel):
-            for j in range(2 ** i):
-                print(f'{self.heap[a]}', end='  ')
-                a += 1
-            print('')
-        for i in range(self.nos-a):
-            print(f'{self.heap[a]}', end='  ')
-            a += 1
-        print('')
 
     def remove_no(self):
         x = self.heap[0]
@@ -68,17 +53,11 @@ class Grafo_G:
         self.grafo_G [u-1][v-1] = peso
         self.grafo_G [v-1][u-1] = peso
 
-    def exibe_matriz(self):
-        print('A matriz de adjacências é:')
-        for i in range(self.vertices):
-            print(self.grafo_G
-[i])
-
     def dijkstra(self, origem):
         custo_consumo_oriundo_de = [[-1, 0] for i in range(self.vertices)]
         custo_consumo_oriundo_de[origem - 1] = [0, origem]
         h = HeapMinimo()
-        h.insere_novono_heap(0, origem)
+        h.adiciona_heap(0, origem)
         while h.tamanho() > 0:
             dist, v = h.remove_no()
             for i in range(self.vertices):
@@ -86,7 +65,7 @@ class Grafo_G:
                     if custo_consumo_oriundo_de[i][0] == -1 \
                     or custo_consumo_oriundo_de[i][0] > dist + self.grafo_G [v-1][i]:
                         custo_consumo_oriundo_de[i] = [dist + self.grafo_G [v-1][i], v]
-                        h.insere_novono_heap(dist + self.grafo_G [v-1][i], i+1)
+                        h.adiciona_heap(dist + self.grafo_G [v - 1][i], i + 1)
         return custo_consumo_oriundo_de
 
 
@@ -104,8 +83,6 @@ g.insere_aresta(4, 5, 6)
 g.insere_aresta(4, 6, 4)
 g.insere_aresta(5, 7, 3)
 g.insere_aresta(6, 7, 8)
-
-g.exibe_matriz()
 
 resultado_dijkstra = g.dijkstra(1)
 print(resultado_dijkstra)
